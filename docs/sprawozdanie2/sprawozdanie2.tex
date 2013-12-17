@@ -15,8 +15,17 @@
   bottom=0.3in
 }
 \usepackage{graphicx} % załączanie obrazów
-\usepackage{algorithm2e}
+\usepackage[linesnumbered, vlined]{algorithm2e}
 \newtheorem{twierdzenie}{Twierdzenie}
+\newtheorem{definicja}{Definicja}
+% zmiana caption dla algorytmu
+\usepackage{caption}% http://ctan.org/pkg/caption
+\newenvironment{algorytm}[1][htb]
+  {\renewcommand{\algorithmcfname}{Algorytm}%
+   \begin{algorithm}[#1]%
+  }{\end{algorithm}}
+
+
 \title{Planarność grafu}
 \author{Paweł Sokołowski\\Michał Kaszlej}
 
@@ -61,9 +70,10 @@
 	Poniżej znajduje się pseudokod algorytmu.
 	
 	
-	\begin{algorithm}[H]
-	\DontPrintSemicolon
-	\LinesNumbered
+	\begin{algorytm}[H]
+	% Ponizsze linie wywalaly bledy
+	%\DontPrintSemicolon
+	%\LinesNumbered 
 	\newcommand{\forcond}{$i=0$ \KwTo $n$}
 	\SetKwFunction{Fn}{JestPlanarny}
 	\Fn{graf g}\Begin{
@@ -84,26 +94,39 @@
 		}
 	}
 	\caption{Pseudokod algorytmu}
-	\end{algorithm}
+	\end{algorytm}
 	
 	Linie 1-6 algorytmu wydają się dosyć oczywiste. Jeżeli mamy doczynienia z grafem pięcio lub sześcio wierzchołkowym sprawdzane 
-	jest odpowiednio czy nie jest to odpowiednio $K_5$ lub $K_3.3$. W linii 8 następuje iteracja po wszystkich krawędziach grafu. 
+	jest odpowiednio czy nie jest to odpowiednio $K_5$ lub $K_{3.3}$. W linii 8 następuje iteracja po wszystkich krawędziach grafu. 
 	Najistotniejszym fragmentem algorytmu wydaje się być linia 9. Budowany jest tam nowy graf poprzez "ściągnięcie" danej krawędzi. 
 	Sama operacja zostanie opisana w dalszej części pracy.
 	
 	\subsection{Operacja ściągnięcia}
-	TODO: napisać coś
+		Ściąganie wzdłuż krawędzi polega na utożsamianiu wierzchołków, które łączy dana krawędź i pomijaniu ewentualnych pętli. 
+ 		
+		\begin{definicja}
+			Mówimy, że graf $G_1$ jest ściągalny do $G_2$, jeśli $G_2$ można otrzymać z $G_1$ poprzez skończony ciąg operacji ściągania wzdłuż krawędzi.
+		\end{definicja}
+		
+		Z \textbf{Twierdzenia 1} wiemy, że jeżeli uda nam się ściągnąć graf wejściowy do $K_5$ lub $K_{3,3}$ to nie jest planarny. 
 	
 	\subsection{Historia operacji}
-	W wyniku operacji ściągnięcia krawędzi dwa wierzchołki będące jej końcami zastępowane są przez jeden. 
-	TODO: opisać jak będzie odtwarzany graf... nie wiem czy to będzie możliwe i czy jest łatwe
+	
+		Aby mieć możliwość, późniejszego odtworzenia podgrafów zawierających $K_5$ bądź $K_{3,3}$ w trakcie działania algorytmu, dla każdej ściągniętej krawędzi zapisywane będą dane historyczne.
+	
 	\subsection{Struktury danych}
-	TODO: napisać coś, wydaje mi się, że lista sąsiedztwa
+
+		Jako sposób reprezentacji grafu wybrano listę sąsiedztwa - przechowywana jest lista sąsiadów dla każdego wierzchołka. 
 	
 	\subsection{Złożoność}
 	
-	TODO: opisać, że chyba niestety O(m!)
-	
+		Istnieje, szereg algorytmów pozwalących na sprawdzenie planarności grafu.
+		Od roku 1974 istnieją algorytmy o złożoności liniowej O(n) w tym np. metody Hopcroft, Tarjan czy Boye, Myrvold. Są to metody bardzo skomplikowane, wymagające żmudnej, czasochłonnej implementacji.
+ 
+		Jako, że zadanie projektowe zdefiniowane zostało dla grafu o 12 wierzchołkach - zdecydowaliśmy, że zastosowanie tak skomplikowanych algorytmów nie jest tu zasadne. 
+		Zaprezentowane w ninejszej pracy rozwiązanie osiąga wydajność na poziomie O(m!)
+		\todo[inline]{Ostatnie zdanie można pominąć:P}
+
 	\section{Bibliografia}
 
 		Wilson, R. J. (1998). Wprowadzenie do teorii grafów. Warszawa: Wydawnictwo Naukowe PWN.
