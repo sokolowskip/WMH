@@ -71,9 +71,6 @@
 	
 	
 	\begin{algorytm}[H]
-	% Ponizsze linie wywalaly bledy
-	%\DontPrintSemicolon
-	%\LinesNumbered 
 	\newcommand{\forcond}{$i=0$ \KwTo $n$}
 	\SetKwFunction{Fn}{JestPlanarny}
 	\Fn{graf g}\Begin{
@@ -110,19 +107,25 @@
 		
 		Z \textbf{Twierdzenia 1} wiemy, że jeżeli uda nam się ściągnąć graf wejściowy do $K_5$ lub $K_{3,3}$ to nie jest planarny. 
 	
-	\subsection{Historia operacji}
-	
-		Aby mieć możliwość, późniejszego odtworzenia podgrafów zawierających $K_5$ bądź $K_{3,3}$ w trakcie działania algorytmu, dla każdej ściągniętej krawędzi zapisywane będą dane historyczne.
-	
 	\subsection{Struktury danych}
 
-		Jako sposób reprezentacji grafu wybrano listę sąsiedztwa - przechowywana jest lista sąsiadów dla każdego wierzchołka. 
+		Graf reprezentowany będzie za pomocą listy sąsiedztwa. W reprezentacji tej, struktura przdstawiająca wierzchołek będzie składała się 
+		z jego identyfikatora oraz listy jego sąsiadów. Sam graf będzie zbudowany z listy wierzchołków. Reprentacja ta pozwoli na budowanie
+		grafu poprzez ściągnięcie krawędzi w czasie $O(m)$.
+	
+	\subsection{Historia operacji}
+		Celem zadania jest próba znalezienia podgrafu ściągalnego do $K_5$ lub $K_{3,3}$, aby odpowiedzieć na pytanie czy dany graf jest planarny. 
+		Nie wystarczy więc aby projektowany algorytm zwracał jedynie binarną odpowiedź, tak lub nie, musi w przypadku stwierdzenia nieplanarności zwrócić 
+		podgraf ściągalny do $K_5$ lub $K_{3,3}$.
+		Aby mieć możliwość odtworzenia takiego podgrafu (w trakcie działania algorytmu zmieniana jest struktura grafu, usuwane są krawędzie i wierzchołki) 
+		podczas każdego zejścia rekurencyjnego zapamiętywana będzie historia ściągniętych krawędzi. Umożliwi to odtworzenie szukanego podgrafu 
+		w zadanym grafie.
 	
 	\subsection{Złożoność}
 	
 		Istnieje, szereg algorytmów pozwalących na sprawdzenie planarności grafu.
 		Od roku 1974 istnieją algorytmy o złożoności liniowej O(n) w tym np. metody Hopcroft, Tarjan czy Boye, Myrvold. Są to metody bardzo skomplikowane, wymagające żmudnej, czasochłonnej implementacji.
- 
+		
 		Jako, że zadanie projektowe zdefiniowane zostało dla grafu o 12 wierzchołkach - zdecydowaliśmy, że zastosowanie tak skomplikowanych algorytmów nie jest tu zasadne. 
 		Zaprezentowane w ninejszej pracy rozwiązanie osiąga wydajność na poziomie O(m!)
 		\todo[inline]{Ostatnie zdanie można pominąć:P}
