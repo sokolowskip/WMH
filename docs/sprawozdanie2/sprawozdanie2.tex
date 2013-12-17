@@ -124,10 +124,14 @@
 	\subsection{Złożoność}
 	
 		Istnieje, szereg algorytmów pozwalących na sprawdzenie planarności grafu.
-		Od roku 1974 istnieją algorytmy o złożoności liniowej O(n) w tym np. metody Hopcroft, Tarjan czy Boye, Myrvold. Są to metody bardzo skomplikowane, wymagające żmudnej, czasochłonnej implementacji.
+		Od roku 1974 istnieją algorytmy o złożoności liniowej $O(n)$ w tym np. metody Hopcroft, Tarjan czy Boye, Myrvold. Są to metody bardzo skomplikowane, wymagające żmudnej, czasochłonnej implementacji.
+		
+		Prostszy w implementacji jest algorytm korzystający z obserwacji dotyczących cyklów i segmentów w grafach planarnych. Jest on mniej wydajny niż wspominane
+		powyżej algorytmy, ale jego złożoność jest również wielomianowa - rzędu $O(n^3)$. Niestety, algorytm ten nie mógł być zastosowany, ponieważ w przypadku
+		stwierdzenia nieplanarności nie zwraca on podgrafu ściągalnego do $K_5$ lub $k_{3, 3}$.
 		
 		Jako, że zadanie projektowe zdefiniowane zostało dla grafu o 12 wierzchołkach - zdecydowaliśmy, że zastosowanie tak skomplikowanych algorytmów nie jest tu zasadne. 
-		Zaprezentowane w ninejszej pracy rozwiązanie osiąga wydajność na poziomie O(m!)
+		Zaprezentowane w ninejszej pracy rozwiązanie osiąga wydajność na poziomie $O(m!)$.
 		\todo[inline]{Ostatnie zdanie można pominąć:P}
 
 	\section{Bibliografia}
