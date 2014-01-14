@@ -7,11 +7,15 @@ namespace PlanarityTesting
 {
     internal class Graph
     {
-        public IDictionary<int, Vertex> Verticies { get; private set; }
+        private readonly IDictionary<int, Vertex> verticies;
+
+        public int Size { get { return verticies.Count; } }
+
+        public IEnumerable<Vertex> AllVerticies { get { return verticies.Values; } } 
 
         public Graph()
         {
-            Verticies = new Dictionary<int, Vertex>();
+            verticies = new Dictionary<int, Vertex>();
         }
 
         public static Graph CreateEmptyGraph()
@@ -58,12 +62,12 @@ namespace PlanarityTesting
 
         public void AddVertex(int id)
         {
-            Verticies[id] = new Vertex(id);
+            verticies[id] = new Vertex(id);
         }
 
         public void AddDirectedEdge(int from, int to)
         {
-            Verticies[from].AddNeighbour(Verticies[to]);
+            verticies[from].AddNeighbour(verticies[to]);
         }
 
         public void AddUndirectedEdge(int u, int v)
@@ -74,15 +78,25 @@ namespace PlanarityTesting
 
         public override string ToString()
         {
-            return string.Join(Environment.NewLine, Verticies.Values);
+            return string.Join(Environment.NewLine, AllVerticies);
         }
 
-        public bool IsFullGraph(int size)
+        public bool IsFull(int n)
         {
-            if (Verticies.Count != size)
+            if (Size != n)
                 return false;
 
-            return Verticies.Values.All(x => x.NeighboursCount == size - 1);
+            return AllVerticies.All(x => x.NeighboursCount == n - 1);
         }
+        
+        public bool IsBipartite(int n, int m)
+        {
+            if (Size != n + m)
+                return false;
+
+            var algortihm = new BipartiteTestingAlgorithm(this);
+            return algortihm.IsBipartite(n, m);
+        }
+      
     }
 }

@@ -4,31 +4,33 @@ using System.Linq;
 
 namespace PlanarityTesting
 {
-    class Vertex
+    internal class Vertex
     {
         public int Id { get; private set; }
 
-        public IDictionary<int, Vertex> Neighbours { get; private set; }
+        private readonly IDictionary<int, Vertex> neighbours;
+
+        public IEnumerable<Vertex> AllNeighbours { get { return neighbours.Values; } }  
 
         public int NeighboursCount
         {
-            get { return Neighbours.Count; }
+            get { return neighbours.Count; }
         }
 
         public Vertex(int id)
         {
             Id = id;
-            Neighbours = new Dictionary<int, Vertex>();
+            neighbours = new Dictionary<int, Vertex>();
         }
 
         public void AddNeighbour(Vertex neighbour)
         {
-            Neighbours[neighbour.Id] = neighbour;
+            neighbours[neighbour.Id] = neighbour;
         }
 
         public override string ToString()
         {
-            return string.Format("{0}: {1}", Id, string.Join(",", Neighbours.Select(x => x.Key)));
+            return string.Format("{0}: {1}", Id, string.Join(",", neighbours.Select(x => x.Key)));
         }
     }
 }

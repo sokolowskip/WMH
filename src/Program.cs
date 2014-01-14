@@ -8,12 +8,12 @@ namespace PlanarityTesting
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var k5 = Graph.CreateFullGraph(5);
             Console.WriteLine(k5);
             Console.WriteLine();
-            
+
             var k7_3 = Graph.CreateBipartiteGraph(7, 3);
             Console.WriteLine(k7_3);
             Console.WriteLine();
@@ -24,15 +24,26 @@ namespace PlanarityTesting
             g.AddVertex(19);
             g.AddVertex(111);
 
-            g.AddDirectedEdge(3,7);
-            g.AddDirectedEdge(7,19);
-            g.AddDirectedEdge(7,111);
+            g.AddDirectedEdge(3, 7);
+            g.AddDirectedEdge(7, 19);
+            g.AddDirectedEdge(7, 111);
 
             Console.WriteLine(g);
             Console.WriteLine();
 
-            Console.WriteLine(k5.IsFullGraph(5));
-            Console.WriteLine(k7_3.IsFullGraph(5));
+            Console.WriteLine(k5.IsFull(5));
+            Console.WriteLine(k7_3.IsFull(5));
+            Console.WriteLine();
+
+            Console.WriteLine(k7_3.IsBipartite(7, 3));
+            Console.WriteLine(k7_3.IsBipartite(3, 7));
+            Console.WriteLine(k5.IsBipartite(2, 3));
+            Console.WriteLine();
+
+            var k3_3 = Graph.CreateBipartiteGraph(3, 3);
+            Console.WriteLine(k3_3.IsBipartite(3, 3));
+            k3_3.AddUndirectedEdge(0,1);
+            Console.WriteLine(k3_3.IsBipartite(3, 3));
         }
     }
 }
