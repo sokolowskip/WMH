@@ -34,8 +34,6 @@ namespace PlanarityTesting
             return graph;
         }
 
-        
-
         public static Graph CreateBipartiteGraph(int n, int m)
         {
             var graph = new Graph();
@@ -58,7 +56,7 @@ namespace PlanarityTesting
             }
         }
 
-    public void AddVertex(int id)
+        public void AddVertex(int id)
         {
             Verticies[id] = new Vertex(id);
         }
@@ -77,6 +75,14 @@ namespace PlanarityTesting
         public override string ToString()
         {
             return string.Join(Environment.NewLine, Verticies.Values);
+        }
+
+        public bool IsFullGraph(int size)
+        {
+            if (Verticies.Count != size)
+                return false;
+
+            return Verticies.Values.All(x => x.NeighboursCount == size - 1);
         }
     }
 }

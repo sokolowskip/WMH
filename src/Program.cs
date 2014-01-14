@@ -30,6 +30,9 @@ namespace PlanarityTesting
 
             Console.WriteLine(g);
             Console.WriteLine();
+
+            Console.WriteLine(k5.IsFullGraph(5));
+            Console.WriteLine(k7_3.IsFullGraph(5));
         }
     }
 }

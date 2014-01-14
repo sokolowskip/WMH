@@ -10,6 +10,11 @@ namespace PlanarityTesting
 
         public IDictionary<int, Vertex> Neighbours { get; private set; }
 
+        public int NeighboursCount
+        {
+            get { return Neighbours.Count; }
+        }
+
         public Vertex(int id)
         {
             Id = id;
