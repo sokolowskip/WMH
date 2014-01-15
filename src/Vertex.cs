@@ -38,5 +38,10 @@ namespace PlanarityTesting
             if (neighbours.ContainsKey(vertexToRemove.Id))
                 neighbours.Remove(vertexToRemove.Id);
         }
+
+        public bool HasNeighbour(int u)
+        {
+            return neighbours.ContainsKey(u);
+        }
     }
 }

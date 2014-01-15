@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security;
@@ -18,14 +19,14 @@ namespace PlanarityTesting
             verticies = new Dictionary<int, Vertex>();
         }
 
-        public IEnumerable<Tuple<int, int>> GetAllEdges()
+        public IEnumerable<Edge> GetAllEdges()
         {
             foreach (var vertex in AllVerticies)
             {
                 foreach (var neighbour in vertex.AllNeighbours)
                 {
                     if (vertex.Id < neighbour.Id)
-                        yield return Tuple.Create(vertex.Id, neighbour.Id);
+                        yield return new Edge(vertex.Id, neighbour.Id);
                 }
             }
         }
@@ -101,9 +102,11 @@ namespace PlanarityTesting
             return AllVerticies.All(x => x.NeighboursCount == n - 1);
         }
         
-        public bool IsBipartite(int n, int m)
+        public bool IsCompleteBipartite(int n, int m)
         {
             if (Size != n + m)
+                return false;
+            if (GetAllEdges().Count() != n*m)
                 return false;
 
             var algortihm = new BipartiteTestingAlgorithm(this);
@@ -131,6 +134,38 @@ namespace PlanarityTesting
             }
             return h;
         }
-      
+
+        public bool ContainsEdge(int u, int v)
+        {
+            if (!verticies.ContainsKey(u))
+                return false;
+            return verticies[v].HasNeighbour(u);
+        }
+
+        public bool ContainsEdge(Edge edge)
+        {
+            return ContainsEdge(edge.U, edge.V);
+        }
+
+        public void RemoveEdge(Edge edge)
+        {
+            RemoveEdge(edge.U, edge.V);
+        }
+
+        private void RemoveEdge(int u, int v)
+        {
+            verticies[u].RemoveNeighbour(verticies[v]);
+            verticies[v].RemoveNeighbour(verticies[u]);
+        }
+
+        public Vertex GetVertex(int u)
+        {
+            return verticies[u];
+        }
+
+        public bool ContainsVertex(int id)
+        {
+            return verticies.ContainsKey(id);
+        }
     }
 }

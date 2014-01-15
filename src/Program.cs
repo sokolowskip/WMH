@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,62 +12,20 @@ namespace PlanarityTesting
     {
         private static void Main(string[] args)
         {
-            var k5 = Graph.CreateCompleteGraph(5);
-            Console.WriteLine(k5);
-            Console.WriteLine();
-
-            var k7_3 = Graph.CreateBipartiteGraph(7, 3);
-            Console.WriteLine(k7_3);
-            Console.WriteLine();
-
-            var g = Graph.CreateEmptyGraph();
-            g.AddVertex(3);
-            g.AddVertex(7);
-            g.AddVertex(19);
-            g.AddVertex(111);
-
-            g.AddDirectedEdge(3, 7);
-            g.AddDirectedEdge(7, 19);
-            g.AddDirectedEdge(7, 111);
-
-            Console.WriteLine(g);
-            Console.WriteLine();
-
-            Console.WriteLine(k5.IsComplete(5));
-            Console.WriteLine(k7_3.IsComplete(5));
-            Console.WriteLine();
-
-            Console.WriteLine(k7_3.IsBipartite(7, 3));
-            Console.WriteLine(k7_3.IsBipartite(3, 7));
-            Console.WriteLine(k5.IsBipartite(2, 3));
-            Console.WriteLine();
-
-            var k3_3 = Graph.CreateBipartiteGraph(3, 3);
-            Console.WriteLine(k3_3.IsBipartite(3, 3));
-            k3_3.AddUndirectedEdge(0, 1);
-            Console.WriteLine(k3_3.IsBipartite(3, 3));
-
-            var g2 = Graph.CreateCompleteGraph(3);
-            g2.AddVertex(3);
-            g2.AddVertex(4);
-            g2.AddVertex(5);
-            g2.AddUndirectedEdge(0,4);
-            g2.AddUndirectedEdge(0,3);
-            g2.AddUndirectedEdge(3,5);
-            g2.AddUndirectedEdge(4,5);
-            Console.WriteLine(g2);
-            Console.WriteLine();
-
-            var h = g2.Shrink(0, 4);
-            Console.WriteLine(h);
-            Console.WriteLine();
-
-            var h2 = h.Shrink(0, 1);
-            Console.WriteLine(h2);
-            Console.WriteLine();
-            Console.WriteLine(new PlanarityTestingAlgorithm(Graph.CreateCompleteGraph(6)).IsPlanar());
-
-            var fromFile = ReadFromFile("../../../graphs/graph1.txt");
+            var fromFile = ReadFromFile("../../../graphs/zadanie.txt");
+            var planarityTestingAlgorithm = new PlanarityTestingAlgorithm(fromFile);
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            if (!planarityTestingAlgorithm.IsPlanar())
+            {
+                Console.WriteLine("Graph is nonplanar.");
+                Console.WriteLine(planarityTestingAlgorithm.NonplanarSubgraph);
+            }
+            else
+            {
+                Console.WriteLine("Graph is planar.");
+            }
+            stopwatch.Stop();
+            Console.WriteLine("Total time: " + stopwatch.Elapsed);
         }
 
         private static Graph ReadFromFile(string fileName)
