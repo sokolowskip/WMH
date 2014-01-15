@@ -35,7 +35,7 @@ namespace PlanarityTesting
             return new Graph();
         }
 
-        public static Graph CreateFullGraph(int size)
+        public static Graph CreateCompleteGraph(int size)
         {
             var graph = new Graph();
             graph.AddVerticiesRange(size);
@@ -93,7 +93,7 @@ namespace PlanarityTesting
             return string.Join(Environment.NewLine, AllVerticies);
         }
 
-        public bool IsFull(int n)
+        public bool IsComplete(int n)
         {
             if (Size != n)
                 return false;

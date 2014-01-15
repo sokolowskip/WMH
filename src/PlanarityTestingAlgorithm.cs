@@ -6,6 +6,8 @@ namespace PlanarityTesting
     {
         private readonly Graph graph;
 
+        public Graph NonplanarSubgraph { get; private set; }
+
         public PlanarityTestingAlgorithm(Graph graph)
         {
             this.graph = graph;
@@ -18,20 +20,15 @@ namespace PlanarityTesting
             return IsPlanar(graph);
         }
 
-        private static bool IsPlanar(Graph g)
+        private bool IsPlanar(Graph g)
         {
-            if (g.Size == 6)
+            if (g.IsBipartite(3, 3) || g.IsComplete(5))
             {
-                var isK3_3 = g.IsBipartite(3, 3);
-                if (isK3_3)
-                    return false;
+                NonplanarSubgraph = g;
+                return false;
             }
             if (g.Size == 5)
-            {
-                var isK5 = g.IsFull(5);
-                if (isK5)
-                    return false;
-            }
+                return true;
             foreach (var edge in g.GetAllEdges())
             {
                 var h = g.Shrink(edge.Item1, edge.Item2);
