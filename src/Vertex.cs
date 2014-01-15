@@ -32,5 +32,11 @@ namespace PlanarityTesting
         {
             return string.Format("{0}: {1}", Id, string.Join(",", neighbours.Select(x => x.Key)));
         }
+
+        public void RemoveNeighbour(Vertex vertexToRemove)
+        {
+            if (neighbours.ContainsKey(vertexToRemove.Id))
+                neighbours.Remove(vertexToRemove.Id);
+        }
     }
 }

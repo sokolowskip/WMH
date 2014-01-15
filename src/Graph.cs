@@ -18,6 +18,18 @@ namespace PlanarityTesting
             verticies = new Dictionary<int, Vertex>();
         }
 
+        public IEnumerable<Tuple<int, int>> GetAllEdges()
+        {
+            foreach (var vertex in AllVerticies)
+            {
+                foreach (var neighbour in vertex.AllNeighbours)
+                {
+                    if (vertex.Id < neighbour.Id)
+                        yield return Tuple.Create(vertex.Id, neighbour.Id);
+                }
+            }
+        }
+
         public static Graph CreateEmptyGraph()
         {
             return new Graph();
@@ -96,6 +108,28 @@ namespace PlanarityTesting
 
             var algortihm = new BipartiteTestingAlgorithm(this);
             return algortihm.IsBipartite(n, m);
+        }
+
+        public Graph Shrink(int n, int m)
+        {
+            var h = new Graph();
+            foreach (var v in AllVerticies.Where(x => x.Id != m))
+            {
+                h.AddVertex(v.Id);
+            }
+            foreach (var vertex in AllVerticies.Where(x => x.Id != m))
+            {
+                foreach (var neighbour in vertex.AllNeighbours.Where(x => x.Id != m))
+                {
+                    h.AddDirectedEdge(vertex.Id, neighbour.Id);
+                }
+            }
+            var mVertex = verticies[m];
+            foreach (var neighbourOfM in mVertex.AllNeighbours.Where(x => x.Id != n))
+            {
+                h.AddUndirectedEdge(n, neighbourOfM.Id);
+            }
+            return h;
         }
       
     }
