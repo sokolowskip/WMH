@@ -63,38 +63,11 @@ namespace PlanarityTesting
             var h2 = h.Shrink(0, 1);
             Console.WriteLine(h2);
             Console.WriteLine();
-            Console.WriteLine(Algorithm(Graph.CreateFullGraph(6)));
+            Console.WriteLine(new PlanarityTestingAlgorithm(Graph.CreateFullGraph(6)).IsPlanar());
         }
 
-        private static bool Algorithm(Graph g)
-        {
-            if (g.GetAllEdges().Count() > g.Size)
-                return false;
-            return IsPlanar(g);
-        }
+        
 
-        private static bool IsPlanar(Graph g)
-        {
-            if (g.Size == 6)
-            {
-                var isK3_3 = g.IsBipartite(3, 3);
-                if (isK3_3)
-                    return false;
-            }
-            if (g.Size == 5)
-            {
-                var isK5 = g.IsFull(5);
-                if (isK5)
-                    return false;
-            }
-            foreach (var edge in g.GetAllEdges())
-            {
-                var h = g.Shrink(edge.Item1, edge.Item2);
-                var isPlanar = IsPlanar(h);
-                if (!isPlanar)
-                    return false;
-            }
-            return true;
-        }
+        
     }
 }
