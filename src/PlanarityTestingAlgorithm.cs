@@ -1,23 +1,23 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace PlanarityTesting
 {
     class PlanarityTestingAlgorithm
     {
-        private readonly Graph graph;
-
+        private readonly Graph inputGraph;
         public Graph NonplanarSubgraph { get; private set; }
 
-        public PlanarityTestingAlgorithm(Graph graph)
+        public PlanarityTestingAlgorithm(Graph inputGraph)
         {
-            this.graph = graph;
+            this.inputGraph = inputGraph;
         }
 
         public bool IsPlanar()
         {
-            if (graph.GetAllEdges().Count() > 3 * graph.Size - 6)
+            if (inputGraph.GetAllEdges().Count() > 3 * inputGraph.Size - 6)
                 return false;
-            return IsPlanar(graph);
+            return IsPlanar(inputGraph);
         }
 
         private bool IsPlanar(Graph g)
@@ -42,30 +42,26 @@ namespace PlanarityTesting
             return true;
         }
 
-        //TODO to jeszcze nie działa dobrze niestety
-        private void ExtendNonplanarSubgraph(Graph g, Edge edge)
+        private void ExtendNonplanarSubgraph(Graph g, Edge e)
         {
-            var nonexistentEdge = GetNonexistentEdgeFronNonplanarSubgraph(g);
-            if (nonexistentEdge.HasValue)
+            var toExtend = GetEdgeToExtend(g, e);
+            if (toExtend != null)
             {
-                NonplanarSubgraph.RemoveEdge(nonexistentEdge.Value);
-                NonplanarSubgraph.AddVertex(edge.V);
-                foreach (var neighbour in g.GetVertex(edge.V).AllNeighbours)
-                {
-                    if (NonplanarSubgraph.ContainsVertex(neighbour.Id))
-                    {
-                        NonplanarSubgraph.AddUndirectedEdge(edge.V, neighbour.Id);
-                    }
-                }
+               NonplanarSubgraph.RemoveEdge(toExtend.Value);
+               NonplanarSubgraph.AddVertex(e.V);
+               NonplanarSubgraph.AddUndirectedEdge(e.V, toExtend.Value.V);
+               NonplanarSubgraph.AddUndirectedEdge(e.V, toExtend.Value.U);
             }
         }
 
-        private Edge? GetNonexistentEdgeFronNonplanarSubgraph(Graph graph)
+        private Edge? GetEdgeToExtend(Graph g, Edge e)
         {
-            foreach (var edge in NonplanarSubgraph.GetAllEdges())
+            foreach (var e2 in NonplanarSubgraph.GetAllEdges())
             {
-                if (!graph.ContainsEdge(edge))
-                    return edge;
+                if (!g.ContainsEdge(e2.U, e2.V) && g.ContainsEdge(e.V, e2.U) && g.ContainsEdge(e.V, e2.V))
+                {
+                    return e2;
+                }
             }
             return null;
         }
