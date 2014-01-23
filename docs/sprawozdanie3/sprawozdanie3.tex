@@ -178,8 +178,37 @@
 
 	\subsection{Sposoby testowania}
 
+		Podstawowym zadaniem stojącym przed projektem było stwierdzenie czy zadany graf jest planarny.
+		W celu weryfikacji, czy implementacja działa także dla innych algorytmów - przygotowano dane testowe.
+		
+		Dla grafów testowych znane jest prawidłowe wyjście programu. Weryfikacja działania programu polegała na wprowadzaniu kolejno danych testowych i weryfikacji wyjścia programu.		
+
 	\subsection{Grafy użyte do testów}
 
+\begin{verbatim}
+graph1.txt
+1: 2, 3
+2: 1, 3
+3: 1, 2
+Graf planarny
+\end{verbatim}
+
+\begin{verbatim}
+graph2.txt
+1: 5,6,7
+2: 4,5,6
+3: 4,5,12
+4: 2,3,7
+5: 1,2,3
+6: 1,2,10,8
+7: 1,4,8,9
+8: 7,9,6
+9: 7,8
+10: 11,6
+11: 10,12
+12: 3, 11
+Graf nie jest planarny
+\end{verbatim}
 	\subsection{Wyniki testów}
 
 \section{Wnioski}
