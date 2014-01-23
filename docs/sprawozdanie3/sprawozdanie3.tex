@@ -143,13 +143,18 @@
 		
 	\subsection{Implementacja}
 
-		Algorytm zaimplementowany został w technologii C\#.
+		Algorytm zaimplementowany został w technologii .NET Framework. Użytym językiem programowanie był C\#.
 		Kod źródłowy dostępny jest za pośrednictwem portalu github: \url{https://github.com/sokolowskip/WMH}.
 		Prace nad implementacją przeprowadzono przy użyciu rosproszonego systemu kontroli wersji git.
 
 	\subsection{Sposób uruchomienia}
-
-	\subsection{Format danych wejściowych}
+	
+		Aplikacja relizująca opisany algorytm i sprawdzająca czy zadany graf jest planarny została nazwana \texttt{PlanarityTesting}. 
+		Jedynym parametrem wejściowym programu jest nazwa pliku zawierającego tekstowy opis grafu. Program uruchamiany jest za pomocą polecenia:
+		\begin{verbatim}
+		PlanarityTesting fileName
+		\end{verbatim}
+	\subsection{Format danych wejściowych} \label{sec:format}
 	
 		Zadany graf w przyjętej reprezentacji wygląda następująco:
 		\begin{SCfigure}[\sidecaptionrelwidth][h!]
