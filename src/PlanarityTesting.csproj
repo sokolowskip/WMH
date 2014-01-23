@@ -44,6 +44,7 @@
     <Compile Include="BipartiteTestingAlgorithm.cs" />
     <Compile Include="Edge.cs" />
     <Compile Include="Graph.cs" />
+    <Compile Include="InvalidFileFormatException.cs" />
     <Compile Include="PlanarityTestingAlgorithm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

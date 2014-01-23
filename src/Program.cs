@@ -9,8 +9,28 @@ namespace PlanarityTesting
     {
         private static void Main(string[] args)
         {
-            var fromFile = ReadFromFile("../../../graphs/zadanie.txt");
-            var planarityTestingAlgorithm = new PlanarityTestingAlgorithm(fromFile);
+            if (args.Length < 1)
+            {
+                Console.WriteLine("Usage: PlanarityTesting fileName");
+                return;
+            }
+            if (!File.Exists(args[0]))
+            {
+                Console.WriteLine("File {0} does not exist.", args[0]);
+                return;
+            }
+            Graph graph;
+            try
+            {
+                graph = ReadFromFile(args[0]);
+            }
+            catch (InvalidFileFormatException)
+            {
+                Console.WriteLine("Incorrect file format.");
+                return;
+            }
+
+            var planarityTestingAlgorithm = new PlanarityTestingAlgorithm(graph);
             Stopwatch stopwatch = Stopwatch.StartNew();
             if (!planarityTestingAlgorithm.IsPlanar())
             {
@@ -32,25 +52,34 @@ namespace PlanarityTesting
             var g = new Graph();
             var allLines = File.ReadAllLines(fileName);
             var splittedAllLines = allLines.Select(x => x.Split(':'));
+            if (splittedAllLines.Any(x => x.Count() != 2))
+                throw new InvalidFileFormatException();
+
             foreach (var id in splittedAllLines.Select(x => x[0]))
             {
-                g.AddVertex(int.Parse(id));
+                g.AddVertex(ParseVertexId(id));
             }
             foreach (var line in splittedAllLines)
             {
-                var fromId = int.Parse(line[0]);
+                var fromId = ParseVertexId(line[0]);
                 var neighbours = line[1].Split(',');
                 foreach (var neighbour in neighbours)
                 {
-                    int toId = int.Parse(neighbour);
+                    int toId = ParseVertexId(neighbour);
+                    if(!g.ContainsVertex(toId))
+                        throw new InvalidFileFormatException();
                     g.AddDirectedEdge(fromId, toId);
                 }
             }
             return g;
         }
 
-        
-
-        
+        private static int ParseVertexId(string id)
+        {
+            int result;
+            if (!int.TryParse(id, out result))
+                throw new InvalidFileFormatException();
+            return result;
+        }
     }
 }
