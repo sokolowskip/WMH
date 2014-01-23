@@ -177,7 +177,17 @@
 12: 1,5,11}}
 		\end{SCfigure}
 	\subsection{Wyjście programu}
-	Wyjściem programu jest odpowiedź na pytanie czy zadany graf jest planarny. 
+	Wyjściem programu są:
+	\begin{itemize}
+	\item Odpowiedź na pytanie czy graf jest planarny.
+	\item Jeżeli jest nieplanarny -  podgraf ściągalny do $K_5$ lub $K_{3,3}$ wyświetlany przy pomocą takiej samej reprezentacji jak graf wejściowy.
+	\item Statystyki
+		\begin{itemize}
+		\item Czas obliczeń.
+		\item Liczba operacji kluczowych (uznano za nią liczę wywołań funkcji rekurencyjnej \texttt{IsPlanar}).
+		\end{itemize}
+	\end{itemize}
+	odpowiedź na pytanie czy zadany graf jest planarny. 
 	Jeżeli nie jest, dodatkowo wyświetlany jest na konsoli podgraf ściągalny do $K_5$ lub $K_{3,3}$ przy pomocą takiej samej reprezentacji jak graf wejściowy.
 	\subsection{Reprezentacja grafu}
 
@@ -197,7 +207,7 @@ graph1.txt
 1: 2, 3
 2: 1, 3
 3: 1, 2
-Graf planarny
+Graf jest planarny
 \end{verbatim}
 
 \begin{verbatim}
@@ -215,6 +225,19 @@ graph2.txt
 11: 10,12
 12: 3, 11
 Graf nie jest planarny
+\end{verbatim}
+
+\begin{verbatim}
+graph3.txt
+1: 2,3,4,5,7,8
+2: 1,3,5,7
+3: 1,2,4
+4: 1,2,3,7
+5: 1,2,6,7,8
+6: 5,7,8
+7: 1,2,4,6,8
+8: 1,5,6,7
+Graf jest planarny.
 \end{verbatim}
 	\subsection{Wyniki testów}
 

@@ -8,6 +8,8 @@ namespace PlanarityTesting
         private readonly Graph inputGraph;
         public Graph NonplanarSubgraph { get; private set; }
 
+        public int Counter { get; private set; }
+
         public PlanarityTestingAlgorithm(Graph inputGraph)
         {
             this.inputGraph = inputGraph;
@@ -22,6 +24,7 @@ namespace PlanarityTesting
 
         private bool IsPlanar(Graph g)
         {
+            Counter++;
             if (g.IsCompleteBipartite(3, 3) || g.IsComplete(5))
             {
                 NonplanarSubgraph = g;

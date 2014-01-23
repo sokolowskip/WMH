@@ -43,6 +43,7 @@ namespace PlanarityTesting
             }
             stopwatch.Stop();
             Console.WriteLine("Total time: " + stopwatch.Elapsed);
+            Console.WriteLine("Number of operations: " + planarityTestingAlgorithm.Counter);
         }
 
         private static Graph ReadFromFile(string fileName)
