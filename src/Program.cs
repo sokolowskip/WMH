@@ -32,16 +32,20 @@ namespace PlanarityTesting
 
             var planarityTestingAlgorithm = new PlanarityTestingAlgorithm(graph);
             Stopwatch stopwatch = Stopwatch.StartNew();
-            if (!planarityTestingAlgorithm.IsPlanar())
+            var isPlanar = planarityTestingAlgorithm.IsPlanar();
+            stopwatch.Stop();
+
+            if (!isPlanar)
             {
                 Console.WriteLine("Graph is nonplanar.");
                 Console.WriteLine(planarityTestingAlgorithm.NonplanarSubgraph);
+                File.WriteAllText("nonplanar_subgraph.txt", planarityTestingAlgorithm.NonplanarSubgraph.ToString());
             }
             else
             {
                 Console.WriteLine("Graph is planar.");
             }
-            stopwatch.Stop();
+            
             Console.WriteLine("Total time: " + stopwatch.Elapsed);
             Console.WriteLine("Number of operations: " + planarityTestingAlgorithm.Counter);
         }
