@@ -14,7 +14,8 @@
   top=0.8in,
   bottom=0.8in
 }
-\usepackage{graphicx} % załączanie obrazów
+\usepackage[pdftex]{graphicx}
+\usepackage{sidecap}
 \usepackage[linesnumbered, vlined]{algorithm2e}
 \newtheorem{twierdzenie}{Twierdzenie}
 \newtheorem{definicja}{Definicja}
@@ -149,7 +150,26 @@
 	\subsection{Sposób uruchomienia}
 
 	\subsection{Format danych wejściowych}
-
+	
+		Zadany graf w przyjętej reprezentacji wygląda następująco:
+		\begin{SCfigure}[\sidecaptionrelwidth][h!]
+			\centering
+			\includegraphics[width=0.3\textwidth]{include/graf.png}
+			\caption*
+{
+\texttt{1: 2,7,12\\
+2: 1,3,9\\
+3: 2,4,8\\
+4: 3,5,10\\
+5: 4,6,12\\
+6: 5,7,11\\
+7: 1,6,8\\
+8: 4,7,9\\
+9: 2,8,10\\
+10: 4,9,11\\
+11: 6,10,12\\
+12: 1,5,11}}
+		\end{SCfigure}
 	\subsection{Wyjście programu}
 
 	\subsection{Reprezentacja grafu}
