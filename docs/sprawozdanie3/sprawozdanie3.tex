@@ -62,7 +62,7 @@
 	\pagebreak
 
 	\section{Opis algorytmu}	
-	Algorytmem, który zostanie zaimplementowany w celu sprawdzenia czy zadany graf jest planarny jest test planarności przy użyciu twierdzena Wagnera: 
+	Algorytmem, który zostanie zaimplementowany w celu sprawdzenia czy zadany graf jest planarny jest test planarności przy użyciu twierdzenia Wagnera: 
 	\begin{twierdzenie}
 	Dany graf jest planarny wtedy i tylko wtedy, gdy nie zawiera podgrafu ściągalnego do grafu $K_{3.3}$ lub do grafu $ K_5 $
 	\end{twierdzenie}
@@ -95,7 +95,7 @@
 	\end{algorytm}
 	
 	Linie 1-6 algorytmu wydają się dosyć oczywiste. 
-	Jeżeli mamy doczynienia z grafem pięcio lub sześcio wierzchołkowym sprawdzane jest odpowiednio czy nie jest to odpowiednio $K_5$ lub $K_{3.3}$. 
+	Jeżeli mamy do czynienia z grafem pięcio lub sześcio wierzchołkowym sprawdzane jest odpowiednio czy nie jest to odpowiednio $K_5$ lub $K_{3.3}$. 
 	W linii 8 następuje iteracja po wszystkich krawędziach grafu. 
 	Najistotniejszym fragmentem algorytmu wydaje się być linia 9. 
 	Budowany jest tam nowy graf poprzez "ściągnięcie" danej krawędzi. 
@@ -125,7 +125,7 @@
 	
 	\subsection{Złożoność}
 	
-		Istnieje, szereg algorytmów pozwalących na sprawdzenie planarności grafu.
+		Istnieje, szereg algorytmów pozwalających na sprawdzenie planarności grafu.
 		Od roku 1974 istnieją algorytmy o złożoności liniowej $O(n)$ w tym np. metody Hopcroft, Tarjan czy Boye, Myrvold.
 		Są to metody bardzo skomplikowane, wymagające żmudnej, czasochłonnej implementacji.
 		
@@ -134,7 +134,7 @@
 		Niestety, algorytm ten nie mógł być zastosowany, ponieważ w przypadku stwierdzenia nieplanarności nie zwraca on podgrafu ściągalnego do $K_5$ lub $K_{3, 3}$.
 		
 		Jako, że zadanie projektowe zdefiniowane zostało dla grafu o 12 wierzchołkach - zdecydowaliśmy, że zastosowanie tak skomplikowanych algorytmów nie jest tu zasadne. 
-		Zaprezentowane w ninejszej pracy rozwiązanie osiąga wydajność na poziomie $O(m!)$.
+		Zaprezentowane w niniejszej pracy rozwiązanie osiąga wydajność na poziomie $O(m!)$.
 
 	\pagebreak
 	
@@ -145,17 +145,17 @@
 
 		Algorytm zaimplementowany został w technologii .NET Framework. Użytym językiem programowanie był C\#.
 		Kod źródłowy dostępny jest za pośrednictwem portalu github: \url{https://github.com/sokolowskip/WMH}.
-		Prace nad implementacją przeprowadzono przy użyciu rosproszonego systemu kontroli wersji git.
+		Prace nad implementacją przeprowadzono przy użyciu rozproszonego systemu kontroli wersji git.
 
 	\subsection{Sposób uruchomienia}
 	
-		Aplikacja relizująca opisany algorytm i sprawdzająca czy zadany graf jest planarny została nazwana \texttt{PlanarityTesting}. 
+		Aplikacja realizująca opisany algorytm i sprawdzająca czy zadany graf jest planarny została nazwana \texttt{PlanarityTesting}. 
 		Jedynym parametrem wejściowym programu jest nazwa pliku zawierającego tekstowy opis grafu. Program uruchamiany jest za pomocą polecenia:
 		\begin{verbatim}
 		PlanarityTesting fileName
 		\end{verbatim}
-	\subsection{Format danych wejściowych} \label{sec:format}
-		Danymi wejściowymi aplikacji jest plik tesktowy zawierający opis grafu. Plik ten składa się z wielu linii. W każdej z nich zakodowana jest inforamcja o wierzchołku i jego sąsiadach. Format linii jest następujący:
+	\subsection{Format danych wejściowych}
+		Danymi wejściowymi aplikacji jest plik tekstowy zawierający opis grafu. Plik ten składa się z wielu linii. W każdej z nich zakodowana jest informacja o wierzchołku i jego sąsiadach. Format linii jest następujący:
 		$v: u_1, u_2, \dots , u_k$, gdzie $v$ jest identyfikatorem opisywanego wierzchołka, a $u_1, u_2, \dots , u_k$ są identyfikatorami jego sąsiadów.
 		Zadany graf w przyjętej reprezentacji wygląda następująco:
 		\begin{SCfigure}[\sidecaptionrelwidth][h!]
@@ -238,6 +238,201 @@ Graf jest planarny.
 \end{verbatim}
 	\subsection{Wyniki testów}
 
+	
+\section{Zadany graf}
+
+Zadany graf jest nieplanarny. Poniżej znajduje się reprezentacja tekstowa podgrafu ściągalnego do $K_{3,3}$:
+\begin{verbatim}
+1: 2,7,12
+2: 1,3
+3: 2,4
+4: 3,5,10
+5: 4,6,12
+6: 5,7,11
+7: 1,6
+10: 4,11
+11: 6,10,12
+12: 1,5,11
+\end{verbatim}
+
+Przedstawione zostaną ponadto kroki w jakich z wejściowego grafu poprzez operację ściągnięcia krawędzi 
+otrzymano graf $K_{3,3}$. 
+\begin{description}
+\item[Graf wejściowy] \hfill \\
+\begin{verbatim}
+1: 2,7,12
+2: 1,3,9
+3: 2,4,8
+4: 3,5,10
+5: 4,6,12
+6: 5,7,11
+7: 1,6,8
+8: 4,7,9
+9: 2,8,10
+10: 4,9,11
+11: 6,10,12
+12: 1,5,11
+\end{verbatim}
+\item[Ściągnięcie krawędzi (1,2)] \hfill \\
+\begin{verbatim}
+1: 3,7,9,12
+3: 1,4,8
+4: 3,5,10
+5: 4,6,12
+6: 5,7,11
+7: 1,6,8
+8: 4,7,9
+9: 1,8,10
+10: 4,9,11
+11: 6,10,12
+12: 1,5,11
+\end{verbatim}
+\item[Ściągnięcie krawędzi (1,7)] \hfill \\
+\begin{verbatim}
+1: 3,6,8,9,12
+3: 1,4,8
+4: 3,5,10
+5: 4,6,12
+6: 1,5,11
+8: 1,4,9
+9: 1,8,10
+10: 4,9,11
+11: 6,10,12
+12: 1,5,11
+\end{verbatim}
+\item[Ściągnięcie krawędzi (1,3)] \hfill \\
+\begin{verbatim}
+1: 4,6,8,9,12
+4: 1,5,10
+5: 4,6,12
+6: 1,5,11
+8: 1,4,9
+9: 1,8,10
+10: 4,9,11
+11: 6,10,12
+12: 1,5,11
+\end{verbatim}
+\item[Ściągnięcie krawędzi (1,9)] \hfill \\
+\begin{verbatim}
+1: 4,6,8,10,12
+4: 1,5,10
+5: 4,6,12
+6: 1,5,11
+8: 1,4
+10: 1,4,11
+11: 6,10,12
+12: 1,5,11
+\end{verbatim}
+\item[Ściągnięcie krawędzi (1,8)] \hfill \\
+\begin{verbatim}
+1: 4,6,10,12
+4: 1,5,10
+5: 4,6,12
+6: 1,5,11
+10: 1,4,11
+11: 6,10,12
+12: 1,5,11
+\end{verbatim}
+\item[Ściągnięcie krawędzi (4,10)] \hfill \\
+\begin{verbatim}
+1: 4,6,12
+4: 1,5,11
+5: 4,6,12
+6: 1,5,11
+11: 4,6,12
+12: 1,5,11
+\end{verbatim}
+\end{description}
+
+Po otrzymaniu grafu $K_{3,3}$ należało jeszcze znaleźć ściągalny do niego podgraf w grafie wejściowym. Robione to było podczas powrotów z funkcji rekurencyjnej. Oznaczmy otrzymany graf $K_{3,3}$ jako $H$, graf 
+aktualnie będący argumentem funkcji rekurencyjnej jako $G$  i krawędź ściągniętą w danym kroku algorytmu z grafu $G$ jako $e = (e_1, e_2)$. 
+W przypadku, gdy do grafu $H$ nie należy żaden z wierzchołków krawędzi $e$ graf $H$ nie jest zmieniany.
+Gdy do grafu $H$ należy jeden z wierzchołków (dla ustalenia wagi przyjmijmy, że $e_1$) możliwe będzie rozszerzenie grafu $H$ o wierzchołek $e_2$. Dojdzie do tego wtedy i tylko wtedy, gdy w grafie $H$ istnieje pewne krawędź 
+$(u,v)$, która nie istnieje w grafie $G$, ale za to w grafie $G$ istnieją krawędzie $(u,e_2)$ i ($v,e_2)$.  W takim przypadku w grafie $H$ przeprowadzone są następujące zmiany:
+\begin{itemize}
+\item Usuwana jest krawędź $(u,v)$.
+\item Dodawany jest wierzchołek $e_2$.
+\item Dodawane są wierzchołki $(u,e_2)$ i ($v,e_2)$.
+\end{itemize} 
+
+Zgodnie z powyższym opisem dla zadanego grafu odtworzenie podgrafu ściągalnego do $K_{3,3}$ przebiegało w następujących krokach. 
+\begin{description}
+\item[Graf $K_{3,3}$] \hfill \\
+\begin{verbatim}
+1: 4,6,12
+4: 1,5,11
+5: 4,6,12
+6: 1,5,11
+11: 4,6,12
+12: 1,5,11
+\end{verbatim}
+\item[Ściągnięcie krawędzi (4,10)] \hfill \\
+\begin{verbatim}
+1: 4,6,12
+4: 1,5,10
+5: 4,6,12
+6: 1,5,11
+10: 4,11
+11: 6,10,12
+12: 1,5,11	
+\end{verbatim}
+\item[Ściągnięcie krawędzi (1,8)] \hfill \\
+\begin{verbatim}
+1: 4,6,12
+4: 1,5,10
+5: 4,6,12
+6: 1,5,11
+10: 4,11
+11: 6,10,12
+12: 1,5,11	
+\end{verbatim}
+\item[Ściągnięcie krawędzi (1,9)] \hfill \\
+\begin{verbatim}
+1: 4,6,12
+4: 1,5,10
+5: 4,6,12
+6: 1,5,11
+10: 4,11
+11: 6,10,12
+12: 1,5,11	
+\end{verbatim}
+\item[Ściągnięcie krawędzi (1,3)] \hfill \\
+\begin{verbatim}
+1: 3,6,12
+3: 1,4
+4: 3,5,10
+5: 4,6,12
+6: 1,5,11
+10: 4,11
+11: 6,12,10
+12: 1,5,11
+\end{verbatim}
+\item[Ściągnięcie krawędzi (1,7)] \hfill \\
+\begin{verbatim}
+1: 3,7,12
+3: 1,4
+4: 3,5,10
+5: 4,6,12
+6: 5,7,11
+7: 1,6
+10: 4,11
+11: 6,12,10
+12: 1,5,11
+\end{verbatim}
+\item[Ściągnięcie krawędzi (1,2)] \hfill \\
+\begin{verbatim}
+1: 2,7,12
+2: 1,3
+3: 2,4
+4: 3,5,10
+5: 4,6,12
+6: 5,7,11
+7: 1,6
+10: 4,11
+11: 6,12,10
+12: 1,5,11
+\end{verbatim}
+\end{description}
 \section{Wnioski}
 
 	\subsection{Efektywność algorytmu największym wyzwaniem}
