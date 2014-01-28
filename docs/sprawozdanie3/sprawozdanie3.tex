@@ -14,9 +14,19 @@
   top=0.8in,
   bottom=0.8in
 }
-\usepackage[pdftex]{graphicx}
+%\usepackage[pdftex]{graphicx}
 \usepackage{sidecap}
 \usepackage[linesnumbered, vlined]{algorithm2e}
+
+
+\usepackage{tikz}
+\usepackage{tikz,fullpage}
+\usetikzlibrary{arrows,%
+                petri,%
+                topaths}%
+\usepackage{tkz-berge}
+\usepackage[position=top]{subfig}
+
 \newtheorem{twierdzenie}{Twierdzenie}
 \newtheorem{definicja}{Definicja}
 % zmiana caption dla algorytmu
@@ -39,7 +49,7 @@
 	\section{Cel projektu}
 
 		Celem projektu jest napisanie algorytmu heurystycznego sprawdzającego czy zadany graf jest planarny.
-		Według twierdzenia podanego w książce (Wilson, 1998):
+		Według twierdzenia Wagnera podanego w książce W.R Wilsona "Wprowadzenie do teorii grafów"[1]:
 
 		\begin{figure}[h]
 			\begin{center}
@@ -48,8 +58,9 @@
 			\end{center}
 		\end{figure}
 
-
+		\begin{twierdzenie}
 		Dany graf jest planarny wtedy i tylko wtedy, gdy nie zawiera podgrafu ściągalnego do grafu $K_{3.3}$ lub do grafu $ K_5 $
+		\end{twierdzenie}
 
 	\section{Język programowania} 
 
@@ -62,7 +73,7 @@
 	\pagebreak
 
 	\section{Opis algorytmu}	
-	Algorytmem, który zostanie zaimplementowany w celu sprawdzenia czy zadany graf jest planarny jest test planarności przy użyciu twierdzenia Wagnera: 
+	Algorytmem, który zostanie zaimplementowany w celu sprawdzenia czy zadany graf jest planarny jest test planarności przy użyciu twierdzenia Wagnera[1, r 85]:
 	\begin{twierdzenie}
 	Dany graf jest planarny wtedy i tylko wtedy, gdy nie zawiera podgrafu ściągalnego do grafu $K_{3.3}$ lub do grafu $ K_5 $
 	\end{twierdzenie}
@@ -126,7 +137,7 @@
 	\subsection{Złożoność}
 	
 		Istnieje, szereg algorytmów pozwalających na sprawdzenie planarności grafu.
-		Od roku 1974 istnieją algorytmy o złożoności liniowej $O(n)$ w tym np. metody Hopcroft, Tarjan czy Boye, Myrvold.
+		Od roku 1974 istnieją algorytmy o złożoności liniowej $O(n)$ w tym np. metody Hopcroft, Tarjan[2] czy Boye, Myrvold[3].
 		Są to metody bardzo skomplikowane, wymagające żmudnej, czasochłonnej implementacji.
 		
 		Prostszy w implementacji jest algorytm korzystający z obserwacji dotyczących cyklów i segmentów w grafach planarnych. 
@@ -385,8 +396,9 @@ Zgodnie z powyższym opisem dla zadanego grafu odtworzenie podgrafu ściągalneg
 
 \section{Bibliografia}
 
-		Wilson R. J., Wprowadzenie do teorii grafów, Warszawa 1998, Wydawnictwo Naukowe PWN.\\[0.3cm]
-		\url{www.win.tue.nl/~nikhil/courses/2012/2WO08/lecture5.pdf}, ost. wiz. 17.12.2013.\\[0.3cm]
-		\url{http://www.geeksforgeeks.org/bipartite-graph/}, ost. wiz. 20.12.2013.
+	[1]	Wilson R. J., Wprowadzenie do teorii grafów, Warszawa 1998, Wydawnictwo Naukowe PWN.\\[0.3cm]
+	[2]	\url{http://www.akira.ruc.dk/~keld/teaching/algoritmedesign\_f08/Artikler/06/Hopcroft73.pdf}, ost. wiz. 27.01.2013\\[0.3cm] 
+	[3]	\url{http://jgaa.info/accepted/2004/BoyerMyrvold2004.8.3.pdf}, ost. wiz. 27.01.2013 \\[0.3cm]
+	[4]	\url{www.win.tue.nl/~nikhil/courses/2012/2WO08/lecture5.pdf}, ost. wiz. 17.12.2013.\\[0.3cm]
 
 \end{document}	
