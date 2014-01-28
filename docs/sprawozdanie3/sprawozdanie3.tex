@@ -44,6 +44,8 @@
 \begin{document}
 
 
+
+
 \maketitle
 
 	\section{Cel projektu}
@@ -202,18 +204,44 @@
 \section{Zadany graf}
 
 Zadany graf jest nieplanarny. Poniżej znajduje się reprezentacja tekstowa podgrafu ściągalnego do $K_{3,3}$:
-\begin{verbatim}
-1: 2,7,12
-2: 1,3
-3: 2,4
-4: 3,5,10
-5: 4,6,12
-6: 5,7,11
-7: 1,6
-10: 4,11
-11: 6,10,12
-12: 1,5,11
-\end{verbatim}
+\begin{verbatim} \end{verbatim}
+\begin{SCfigure}[\sidecaptionrelwidth][h!]
+\centering
+\begin{tikzpicture}
+  [scale=.8,auto=left,every node/.style={circle,fill=blue!20}]
+  \node (n10) at (0,0) {10};
+  \node (n9) at (2,0)  {9};
+  \node (n8) at (4,0)  {8};
+  \node (n7) at (6,0) {7};
+  \node (n6) at (6,2)  {6};
+  \node (n5) at (6,4)  {5};
+  \node (n4) at (6,6) {4};
+  \node (n3) at (4,6)  {3};
+  \node (n2) at (2,6)  {2};
+  \node (n1) at (0,6) {1};
+  \node (n12) at (0,4)  {12};
+  \node (n11) at (0,2)  {11};
+  
+  \foreach \from/\to in {n1/n2,n1/n7,n1/n12,n2/n3,n3/n4,n4/n5,n4/n10,n5/n6,n5/n12,n6/n7,n6/n11, n10/n11,n11/n12}
+    \draw (\from) -- (\to);
+
+\end{tikzpicture}
+
+\caption*
+{
+\texttt
+{1: 2,7,12\\
+2: 1,3\\
+3: 2,4\\
+4: 3,5,10\\
+5: 4,6,12\\
+6: 5,7,11\\
+7: 1,6\\
+10: 4,11\\
+11: 6,10,12\\
+12: 1,5,11}}
+\end{SCfigure} 
+\vspace{0.3cm}
 
 Przedstawione zostaną ponadto kroki w jakich z wejściowego grafu poprzez operację ściągnięcia krawędzi 
 otrzymano graf $K_{3,3}$. 
